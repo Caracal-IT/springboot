@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{984EBB66-07F8-45FD-8617-B2F7648DDCDA}"
+	ProjectSection(SolutionItems) = preProject
+		src\docker-compose.yml = src\docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A79503D4-DE10-4CD2-816A-FA3B347CAA6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{2A9C0D41-1563-4341-A3B6-8FDEA8BE19B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{ACD3FB85-7E26-4EE3-9BE3-78086C10EE4A}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Interview-SqlWords.pdf = docs\Interview-SqlWords.pdf
+		docs\sql_sensitive_list.txt = docs\sql_sensitive_list.txt
+		docs\architecture.drawio.png = docs\architecture.drawio.png
+		docs\index.md = docs\index.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Admin.Api", "src\Caracal.SpringBoot.Admin.Api\Caracal.SpringBoot.Admin.Api.csproj", "{DFE09C4E-592B-455B-9170-D25419CCFB13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Api", "src\Caracal.SpringBoot.Api\Caracal.SpringBoot.Api.csproj", "{9CCEE13F-F376-4992-BE39-115E8F00BE61}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DFE09C4E-592B-455B-9170-D25419CCFB13} = {984EBB66-07F8-45FD-8617-B2F7648DDCDA}
+		{9CCEE13F-F376-4992-BE39-115E8F00BE61} = {984EBB66-07F8-45FD-8617-B2F7648DDCDA}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFE09C4E-592B-455B-9170-D25419CCFB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE09C4E-592B-455B-9170-D25419CCFB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE09C4E-592B-455B-9170-D25419CCFB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE09C4E-592B-455B-9170-D25419CCFB13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CCEE13F-F376-4992-BE39-115E8F00BE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CCEE13F-F376-4992-BE39-115E8F00BE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CCEE13F-F376-4992-BE39-115E8F00BE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CCEE13F-F376-4992-BE39-115E8F00BE61}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
