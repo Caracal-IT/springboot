@@ -1,3 +1,3 @@
 # Spring Boot
 ![](architecture.drawio.png)
-## Architecture
+## Architecture 2
