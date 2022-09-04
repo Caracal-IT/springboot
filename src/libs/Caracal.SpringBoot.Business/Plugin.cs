@@ -7,7 +7,7 @@ namespace Caracal.SpringBoot.Business;
 public static class Plugin {
     public static IServiceCollection AddSpringBoot(this IServiceCollection services) {
         services.AddMediatR(x => x.AsScoped(), typeof(Plugin));
-        services.AddScopedServices(typeof(Plugin));
+        services.AddScopedObjects(typeof(Plugin));
 
         return services;
     }

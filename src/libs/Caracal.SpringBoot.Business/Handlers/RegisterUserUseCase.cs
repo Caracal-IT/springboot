@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Caracal.SpringBoot.Business.Handlers;
 
+public record RegisterUserRequestParameters(int Id) : IHttpRequest;
 public record RegisterUserRequest(int Id, string FirstName) : IHttpRequest;
 
 [HttpPost("users/{id}")]

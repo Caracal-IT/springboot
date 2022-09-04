@@ -2,16 +2,16 @@ using Caracal.Web.MediatR.DI;
 namespace Caracal.Web.MediatR.Extensions; 
 
 public static class ServiceExtensions {
-    public static IServiceCollection AddScopedServices(this IServiceCollection services, Type type) {
+    public static IServiceCollection AddScopedObjects(this IServiceCollection services, Type type) {
         type.Assembly
             .GetTypes()
-            .Where(t => t.IsAssignableTo(typeof(IService)))
+            .Where(t => t.IsAssignableTo(typeof(IScoped)))
             .ToList()
-            .ForEach(RegisterServices);
+            .ForEach(Register);
 
-        void RegisterServices(Type t) {
+        void Register(Type t) {
             t.GetInterfaces()
-             .Where(a => a != typeof(IService))
+             .Where(a => a != typeof(IScoped))
              .ToList()
              .ForEach(RegisterInterface);
             
