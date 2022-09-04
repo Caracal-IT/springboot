@@ -1,5 +1,11 @@
-namespace Caracal.SpringBoot.Business.Services; 
+using Caracal.SpringBoot.Business.Repositories;
 
-public class GuidService: IGuidService, IScoped {
-    public Guid Id { get; set; } = Guid.NewGuid();
+namespace Caracal.SpringBoot.Business.Services;
+
+public class GuidService : IGuidService, IScoped {
+  public GuidService(IGuidRepository repository) {
+    Id = repository.GetNewId();
+  }
+
+  public Guid Id { get; set; }
 }

@@ -1,5 +1,5 @@
-namespace Caracal.SpringBoot.Business.Services; 
+namespace Caracal.SpringBoot.Business.Services;
 
 public interface IGuidService {
-    Guid Id { get; set; }
+  Guid Id { get; set; }
 }

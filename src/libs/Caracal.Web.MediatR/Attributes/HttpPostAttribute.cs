@@ -1,6 +1,6 @@
-namespace Caracal.Web.MediatR.Attributes; 
+namespace Caracal.Web.MediatR.Attributes;
 
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]  
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
 public class HttpPostAttribute : HttpAttribute {
-    public HttpPostAttribute(string path) { }
+  public HttpPostAttribute(string path) { }
 }

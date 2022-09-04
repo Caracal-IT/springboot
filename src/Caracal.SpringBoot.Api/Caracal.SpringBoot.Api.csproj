@@ -9,13 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="10.0.1" />
-      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+        <PackageReference Include="MediatR" Version="10.0.1"/>
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\libs\Caracal.SpringBoot.Business\Caracal.SpringBoot.Business.csproj" />
-      <ProjectReference Include="..\libs\Caracal.Web.MediatR\Caracal.Web.MediatR.csproj" />
+        <ProjectReference Include="..\libs\Caracal.SpringBoot.Business\Caracal.SpringBoot.Business.csproj"/>
+        <ProjectReference Include="..\libs\Caracal.SpringBoot.Data\Caracal.SpringBoot.Data.csproj"/>
+        <ProjectReference Include="..\libs\Caracal.Web.MediatR\Caracal.Web.MediatR.csproj"/>
     </ItemGroup>
 
 </Project>

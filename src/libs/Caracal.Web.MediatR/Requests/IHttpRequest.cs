@@ -1,3 +1,3 @@
-namespace Caracal.Web.MediatR.Requests; 
+namespace Caracal.Web.MediatR.Requests;
 
-public interface IHttpRequest: IRequest<IResult> { }
+public interface IHttpRequest : IRequest<IResult> { }

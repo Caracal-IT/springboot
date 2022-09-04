@@ -1,4 +1,4 @@
-namespace Caracal.Web.MediatR.Attributes; 
+namespace Caracal.Web.MediatR.Attributes;
 
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]  
-public abstract class HttpAttribute: Attribute { }
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
+public abstract class HttpAttribute : Attribute { }
