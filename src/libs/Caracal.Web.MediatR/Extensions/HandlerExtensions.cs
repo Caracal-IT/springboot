@@ -1,6 +1,3 @@
-using HttpGetAttribute = Caracal.Web.MediatR.Attributes.HttpGetAttribute;
-using HttpPostAttribute = Caracal.Web.MediatR.Attributes.HttpPostAttribute;
-
 namespace Caracal.Web.MediatR.Extensions; 
 
 public static class HandlerExtensions {
