@@ -1,3 +1,3 @@
 namespace Caracal.Web.Core.DI;
 
-public interface IScoped { }
+public interface IInjectable { }
