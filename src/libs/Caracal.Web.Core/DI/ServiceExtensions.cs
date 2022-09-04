@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Caracal.Web.Core.DI;
 
 public static class ServiceExtensions {

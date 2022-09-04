@@ -1,7 +1,3 @@
-using Caracal.Web.MediatR.Extensions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Caracal.SpringBoot.Business;
 
 public static class Plugin {

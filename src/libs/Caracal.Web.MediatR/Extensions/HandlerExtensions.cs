@@ -34,16 +34,14 @@ public static class HandlerExtensions {
     }
   }
 
-  public static void HttpGetAttribute<TRequest>(WebApplication app, string template) where TRequest : IHttpRequest {
+  public static void HttpGetAttribute<TRequest>(WebApplication app, string template) where TRequest : IHttpRequest =>
     app.MapGet(template, async (IMediator mediator, [AsParameters] TRequest req) => await mediator.Send(req));
-  }
 
   public static void HttpPostAttribute<TPath, TRequest>(WebApplication app, string template)
     where TPath : IHttpRequestParameters
-    where TRequest : IHttpPostRequest<TPath> {
+    where TRequest : IHttpPostRequest<TPath> =>
     app.MapPost(template, async (IMediator mediator, [AsParameters] TPath path, TRequest req) => {
       req.Path = path;
       return await mediator.Send(req);
     });
-  }
 }

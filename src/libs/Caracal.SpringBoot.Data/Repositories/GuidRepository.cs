@@ -1,5 +1,3 @@
-using Caracal.SpringBoot.Business.Repositories;
-
 namespace Caracal.SpringBoot.Data.Repositories;
 
 //public class GuidRepository : IGuidRepository, ITransientInjectable {
