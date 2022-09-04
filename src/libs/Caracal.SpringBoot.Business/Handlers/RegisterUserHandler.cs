@@ -8,7 +8,7 @@ public record RegisterUserRequest(int Id, string FirstName) : IHttpPostRequest<R
 }
 
 [HttpPost("users/{id}")]
-public class RegisterUserUseCase : IPostRequestHandler<RegisterUserRequestParameters, RegisterUserRequest> {
+public class RegisterUserHandler : IPostRequestHandler<RegisterUserRequestParameters, RegisterUserRequest> {
   public Task<IResult> Handle(RegisterUserRequest request, CancellationToken cancellationToken) =>
     Task.FromResult(Ok($"Registered [{request.Path?.Id}] ({request.Id}) {request.FirstName}"));
 }
