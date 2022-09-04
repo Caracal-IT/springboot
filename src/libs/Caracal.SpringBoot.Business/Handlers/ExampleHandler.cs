@@ -17,7 +17,7 @@ public class ExampleHandler : IRequestHandler<ExampleRequest, IResult> {
     _useCase = useCase;
 
   public async Task<IResult> Handle(ExampleRequest request, CancellationToken cancellationToken) {
-    var response = await _useCase.Execute(request.Adapt<PersonRequest>());
+    var response = await _useCase.Execute(request.Adapt<PersonRequest>(), cancellationToken);
     
     return Ok(new ExampleResponse($"The age was {response.Age} and the name was {response.Name}", response.Id));
   }
