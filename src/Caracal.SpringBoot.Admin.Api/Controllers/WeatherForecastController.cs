@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace Caracal.SpringBoot.Admin.Api.Controllers;
 
 [ApiController]

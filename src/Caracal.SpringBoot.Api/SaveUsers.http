@@ -1,0 +1,7 @@
+POST https://localhost:7269/users
+Content-Type: application/json
+
+{
+  "id": 999,
+  "FirstName": "Ettiene"
+}
