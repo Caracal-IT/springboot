@@ -11,4 +11,8 @@
         <ProjectReference Include="..\Caracal.Web.MediatR\Caracal.Web.MediatR.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+    </ItemGroup>
+
 </Project>

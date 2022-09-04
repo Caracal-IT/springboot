@@ -1,4 +1,8 @@
 // ReSharper disable ClassNeverInstantiated.Global
+
+using Caracal.SpringBoot.Business.UseCases.Example;
+using Mapster;
+
 namespace Caracal.SpringBoot.Business.Handlers;
 
 public record ExampleRequest(string Age, string Name) : IHttpRequest;
@@ -7,11 +11,14 @@ public record ExampleResponse(string Message, Guid Id);
 
 [HttpGet("example/{name}")]
 public class ExampleHandler : IRequestHandler<ExampleRequest, IResult> {
-  private readonly IGuidService _guidService;
+  private readonly IExampleUseCase _useCase;
 
-  public ExampleHandler(IGuidService guidService) =>
-    _guidService = guidService;
+  public ExampleHandler(IExampleUseCase useCase) =>
+    _useCase = useCase;
 
-  public Task<IResult> Handle(ExampleRequest request, CancellationToken cancellationToken) =>
-    Task.FromResult(Ok(new ExampleResponse($"The age was {request.Age} and the name was {request.Name}", _guidService.Id)));
+  public async Task<IResult> Handle(ExampleRequest request, CancellationToken cancellationToken) {
+    var response = await _useCase.Execute(request.Adapt<PersonRequest>());
+    
+    return Ok(new ExampleResponse($"The age was {response.Age} and the name was {response.Name}", response.Id));
+  }
 }
