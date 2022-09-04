@@ -1,7 +1,7 @@
-POST https://localhost:7269/users
+POST https://localhost:7269/users/34
 Content-Type: application/json
 
 {
-  "id": 999,
+  "id": 5,
   "FirstName": "Ettiene"
 }

@@ -1,12 +1,13 @@
+// ReSharper disable ClassNeverInstantiated.Global
 using Microsoft.AspNetCore.Http;
 
 namespace Caracal.SpringBoot.Business.Handlers;
 
-public record RegisterUserRequest(string FirstName) : IHttpRequest;
+public record RegisterUserRequest(int Id, string FirstName) : IHttpRequest;
 
-[HttpPost("users")]
+[HttpPost("users/{id}")]
 public class RegisterUserUseCase: IRequestHandler<RegisterUserRequest, IResult> {
     public Task<IResult> Handle(RegisterUserRequest request, CancellationToken cancellationToken) {
-        return Task.FromResult(Ok($"Registered {request.FirstName}"));
+        return Task.FromResult(Ok($"Registered ({request.Id}) {request.FirstName}"));
     }
 }

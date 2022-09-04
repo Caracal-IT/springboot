@@ -4,7 +4,7 @@ using MediatR;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediatR(x => x.AsScoped(), typeof(Caracal.SpringBoot.Business.Main));
-builder.Services.AddScoped<Caracal.SpringBoot.Business.Services.GuidService>();
+builder.Services.AddScopedServices(typeof(Caracal.SpringBoot.Business.Main));
 
 var app = builder.Build();
 

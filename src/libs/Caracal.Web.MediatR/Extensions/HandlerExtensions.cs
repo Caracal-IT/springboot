@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using HttpGetAttribute = Caracal.Web.MediatR.Attributes.HttpGetAttribute;
 using HttpPostAttribute = Caracal.Web.MediatR.Attributes.HttpPostAttribute;
 
@@ -37,5 +36,5 @@ public static class HandlerExtensions {
         app.MapGet(template, async (IMediator mediator, [AsParameters] TRequest req) => await mediator.Send(req));
     
     public static void HttpPostAttribute<TRequest>(WebApplication app, string template) where TRequest: IHttpRequest =>
-        app.MapPost(template, async (IMediator mediator, [FromBody] TRequest req) => await mediator.Send(req));
+        app.MapPost(template, async (IMediator mediator, TRequest req) => await mediator.Send(req));
 }

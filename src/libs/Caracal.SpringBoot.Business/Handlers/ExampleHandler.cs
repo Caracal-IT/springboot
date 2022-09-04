@@ -1,5 +1,4 @@
 // ReSharper disable ClassNeverInstantiated.Global
-
 using Microsoft.AspNetCore.Http;
 
 namespace Caracal.SpringBoot.Business.Handlers; 
@@ -9,9 +8,9 @@ public record ExampleResponse(string Message, Guid Id);
 
 [HttpGet("example/{name}")]
 public class ExampleHandler: IRequestHandler<ExampleRequest, IResult> {
-    private readonly GuidService _guidService;
+    private readonly IGuidService _guidService;
     
-    public ExampleHandler(GuidService guidService) =>
+    public ExampleHandler(IGuidService guidService) =>
         _guidService = guidService;
 
     public Task<IResult> Handle(ExampleRequest request, CancellationToken cancellationToken) =>
