@@ -12,7 +12,7 @@ public static class ServiceExtensions {
       var isolationLevel = services.GetIsolationLevel(t);
       
       t.GetInterfaces()
-       .Where(a => a != typeof(IInjectable))
+       .Where(a => !a.IsAssignableFrom(typeof(IInjectable)))
        .ToList()
        .ForEach(RegisterInterface);
 
