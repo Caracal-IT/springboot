@@ -1,9 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{984EBB66-07F8-45FD-8617-B2F7648DDCDA}"
-	ProjectSection(SolutionItems) = preProject
-		src\docker-compose.yml = src\docker-compose.yml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A79503D4-DE10-4CD2-816A-FA3B347CAA6C}"
 EndProject
@@ -38,6 +35,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Data", "src\libs\Caracal.SpringBoot.Data\Caracal.SpringBoot.Data.csproj", "{BE29E2BC-9F43-4543-B8E1-6299049C7C4F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.Web.Core", "src\libs\Caracal.Web.Core\Caracal.Web.Core.csproj", "{7349F2F3-FABD-46DC-B77F-097835BD4DC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5675BB6A-8997-49E3-B91C-CEFA03AB409B}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		springBook_Dockerfile = springBook_Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

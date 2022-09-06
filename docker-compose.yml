@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  web:
+    build:
+      dockerfile: springBook_DockerFile
+    ports:
+      - "8080:80"
