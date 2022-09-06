@@ -6,7 +6,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>aspnet-Caracal.SpringBoot.Admin.Api-C139E233-2E7E-4F0B-95CE-740A5DB2B67A</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <LangVersion>11</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
