@@ -14,7 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Templates\EmbeddedDefaultTemplate.xml" />
         <EmbeddedResource Include="Templates\EmbeddedDefaultTemplate.xml" />
     </ItemGroup>
 

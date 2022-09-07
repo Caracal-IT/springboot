@@ -26,4 +26,17 @@ public class TemplateController : ControllerBase {
 
     return Ok($"Template Found: {fileInfo.PhysicalPath} Physical Paths = {string.Join(",\n", physicalPaths)}");
   }
+
+  [HttpGet("embedded")]
+  public Task<OkObjectResult> ReadEmbedded() {
+    var provider = new EmbeddedFileProvider(typeof(ITemplateService).Assembly);
+
+    var fileInfo = provider.GetFileInfo("Templates/EmbeddedDefaultTemplate.xml");
+    
+    using var stream = fileInfo.CreateReadStream(); 
+    using var reader = new StreamReader(stream);
+    var content = reader.ReadToEnd();
+    
+    return Task.FromResult(Ok(content));
+  }
 }

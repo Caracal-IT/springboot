@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{7F16
 	ProjectSection(SolutionItems) = preProject
 		scripts\SaveUsers.http = scripts\SaveUsers.http
 		scripts\http-client.env.json = scripts\http-client.env.json
+		scripts\example.http = scripts\example.http
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Data", "src\libs\Caracal.SpringBoot.Data\Caracal.SpringBoot.Data.csproj", "{BE29E2BC-9F43-4543-B8E1-6299049C7C4F}"
@@ -40,6 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5675BB
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
+		Dockerfile_Admin = Dockerfile_Admin
 	EndProjectSection
 EndProject
 Global

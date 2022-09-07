@@ -1,6 +1,45 @@
 version: "3.9"
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+          - NODE_ENV=local
+      dockerfile: Dockerfile
     ports:
       - "8080:80"
+    depends_on:
+      - "postgres"
+    networks:
+      - springboot-network
+      
+  admin:
+    build:
+      context: .
+      args:
+        - NODE_ENV=local
+      dockerfile: Dockerfile_Admin
+    ports:
+      - "9090:80"
+      - "9191:443"
+    depends_on:
+      - "postgres"
+    networks:
+      - springboot-network
+      
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgress
+      - POSTGRES_DB=postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - /Users/ettienemare/Documents/Development/postgres/springboot:/var/lib/postgresql/data
+    networks:
+      - springboot-network
+        
+networks:
+  springboot-network:
+    driver: bridge
