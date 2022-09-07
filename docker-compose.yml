@@ -12,7 +12,17 @@ services:
       - "postgres"
     networks:
       - springboot-network
-      
+  
+  worker-general:
+    build:
+      context: .
+      args:
+        - NODE_ENV=local
+      dockerfile: Dockerfile_Worker_General
+    depends_on:
+      - "postgres"
+    networks:
+      - springboot-network
   admin:
     build:
       context: .

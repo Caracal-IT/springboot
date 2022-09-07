@@ -42,7 +42,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5675BB
 		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
 		Dockerfile_Admin = Dockerfile_Admin
+		Dockerfile_Worker_General = Dockerfile_Worker_General
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workers", "workers", "{80090FA4-E17D-41AD-A588-93AA4B23DEC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Workers.General", "src\workers\Caracal.SpringBoot.Workers.General\Caracal.SpringBoot.Workers.General.csproj", "{2552EDD4-2B5B-4DB5-AFBA-01C13CAD7968}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +63,8 @@ Global
 		{11491C81-224C-4BC2-84DC-9EFFA973684A} = {A2247581-4C6D-4661-8241-0404E4A0E58C}
 		{BE29E2BC-9F43-4543-B8E1-6299049C7C4F} = {A2247581-4C6D-4661-8241-0404E4A0E58C}
 		{7349F2F3-FABD-46DC-B77F-097835BD4DC7} = {A2247581-4C6D-4661-8241-0404E4A0E58C}
+		{80090FA4-E17D-41AD-A588-93AA4B23DEC2} = {984EBB66-07F8-45FD-8617-B2F7648DDCDA}
+		{2552EDD4-2B5B-4DB5-AFBA-01C13CAD7968} = {80090FA4-E17D-41AD-A588-93AA4B23DEC2}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFE09C4E-592B-455B-9170-D25419CCFB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -88,5 +95,9 @@ Global
 		{7349F2F3-FABD-46DC-B77F-097835BD4DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7349F2F3-FABD-46DC-B77F-097835BD4DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7349F2F3-FABD-46DC-B77F-097835BD4DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2552EDD4-2B5B-4DB5-AFBA-01C13CAD7968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2552EDD4-2B5B-4DB5-AFBA-01C13CAD7968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2552EDD4-2B5B-4DB5-AFBA-01C13CAD7968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2552EDD4-2B5B-4DB5-AFBA-01C13CAD7968}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
