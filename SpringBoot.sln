@@ -39,7 +39,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5675BB6A-8997-49E3-B91C-CEFA03AB409B}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
-		springBook_Dockerfile = springBook_Dockerfile
+		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
 Global
