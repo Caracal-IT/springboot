@@ -9,9 +9,11 @@ public class TemplateController : ControllerBase {
   private readonly ITemplateService _templateService;
   private IHostEnvironment _environment;
   private readonly IFileProvider _fileProvider;
+  private readonly ILogger<TemplateController> _logger;
 
-  public TemplateController(IHostEnvironment environment, ITemplateService templateService) {
+  public TemplateController(IHostEnvironment environment, ITemplateService templateService, ILogger<TemplateController> logger) {
     _templateService = templateService;
+    _logger = logger;
     _fileProvider = environment.ContentRootFileProvider;
     _environment = environment;
   }
@@ -28,15 +30,17 @@ public class TemplateController : ControllerBase {
   }
 
   [HttpGet("embedded")]
-  public Task<OkObjectResult> ReadEmbedded() {
+  public async Task<OkObjectResult> ReadEmbedded(CancellationToken cancellationToken) {
     var provider = new EmbeddedFileProvider(typeof(ITemplateService).Assembly);
 
     var fileInfo = provider.GetFileInfo("Templates/EmbeddedDefaultTemplate.xml");
-    
-    using var stream = fileInfo.CreateReadStream(); 
+
+    await using var stream = fileInfo.CreateReadStream(); 
     using var reader = new StreamReader(stream);
-    var content = reader.ReadToEnd();
+    var content = await reader.ReadToEndAsync(cancellationToken);
     
-    return Task.FromResult(Ok(content));
+    _logger.LogWarning($"Loading embedded template");
+    
+    return Ok(content);
   }
 }

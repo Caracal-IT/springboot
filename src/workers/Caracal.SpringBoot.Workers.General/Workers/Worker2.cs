@@ -9,7 +9,7 @@ public class Worker2 : BackgroundService {
 
   protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
     while (!stoppingToken.IsCancellationRequested) {
-      _logger.LogInformation("Second Worker running at: {Time}", DateTimeOffset.Now);
+      //_logger.LogInformation("Second Worker running at: {Time}", DateTimeOffset.Now);
       await Task.Delay(15000, stoppingToken);
     }
   }
