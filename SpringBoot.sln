@@ -49,6 +49,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workers", "workers", "{8009
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Workers.General", "src\workers\Caracal.SpringBoot.Workers.General\Caracal.SpringBoot.Workers.General.csproj", "{2552EDD4-2B5B-4DB5-AFBA-01C13CAD7968}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elastic", "elastic", "{AFBBF0FF-4F1B-4488-9D77-56B429B04B78}"
+	ProjectSection(SolutionItems) = preProject
+		elastic\docker-compose.yml = elastic\docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +70,7 @@ Global
 		{7349F2F3-FABD-46DC-B77F-097835BD4DC7} = {A2247581-4C6D-4661-8241-0404E4A0E58C}
 		{80090FA4-E17D-41AD-A588-93AA4B23DEC2} = {984EBB66-07F8-45FD-8617-B2F7648DDCDA}
 		{2552EDD4-2B5B-4DB5-AFBA-01C13CAD7968} = {80090FA4-E17D-41AD-A588-93AA4B23DEC2}
+		{AFBBF0FF-4F1B-4488-9D77-56B429B04B78} = {5675BB6A-8997-49E3-B91C-CEFA03AB409B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFE09C4E-592B-455B-9170-D25419CCFB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

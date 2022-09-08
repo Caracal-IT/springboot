@@ -1,4 +1,5 @@
 using Caracal.SpringBoot.Templates.Services;
+using Elastic.Apm.NetCoreAll;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,13 +16,14 @@ builder.Services.AddSingleton<ITemplateService>(p => new TemplateService(p.GetSe
 
 var app = builder.Build();
 
+app.UseAllElasticApm(app.Configuration);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
   app.UseSwagger();
   app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 //app.UseAuthentication();
 //app.UseAuthorization();

@@ -8,11 +8,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:80"
+      - "8181:443"
     depends_on:
       - "postgres"
     networks:
       - springboot-network
-  
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      
   worker-general:
     build:
       context: .
@@ -23,6 +26,7 @@ services:
       - "postgres"
     networks:
       - springboot-network
+      
   admin:
     build:
       context: .
@@ -36,7 +40,9 @@ services:
       - "postgres"
     networks:
       - springboot-network
-      
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
   postgres:
     image: postgres
     environment:
