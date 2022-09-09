@@ -23,6 +23,7 @@ public static class BuilderExtensions {
       var configuration = new ConfigurationBuilder()
         .AddJsonFile("appsettings.json", false, true)
         .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
+        .AddEnvironmentVariables()
         .Build();
 
       Log.Logger = new LoggerConfiguration()
