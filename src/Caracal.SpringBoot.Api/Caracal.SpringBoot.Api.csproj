@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\libs\Caracal.SpringBoot.Business\Caracal.SpringBoot.Business.csproj" />
+        <ProjectReference Include="..\libs\Caracal.SpringBoot.Application\Caracal.SpringBoot.Application.csproj" />
         <ProjectReference Include="..\libs\Caracal.SpringBoot.Data\Caracal.SpringBoot.Data.csproj" />
         <ProjectReference Include="..\libs\Caracal.Web.MediatR\Caracal.Web.MediatR.csproj" />
     </ItemGroup>

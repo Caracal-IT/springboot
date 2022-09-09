@@ -1,4 +1,4 @@
-namespace Caracal.SpringBoot.Business.Repositories;
+namespace Caracal.SpringBoot.Application.Repositories;
 
 public interface IGuidRepository {
   Guid GetNewId();

@@ -1,16 +1,16 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["src/workers/Caracal.SpringBoot.Workers.General", "Caracal.SpringBoot.Workers.General/"]
-RUN dotnet restore "Caracal.SpringBoot.Workers.General/Caracal.SpringBoot.Workers.General.csproj"
+WORKDIR /
 COPY . .
-WORKDIR "/src/Caracal.SpringBoot.Workers.General"
-RUN dotnet build "Caracal.SpringBoot.Workers.General.csproj" -c Release -o /app/build
+RUN dotnet restore
+RUN dotnet build SpringBoot.sln -c Release -o /app/build -f:net7.0
 
 FROM build AS publish
-RUN dotnet publish "Caracal.SpringBoot.Workers.General.csproj" -c Release -o /app/publish
+RUN dotnet publish src/workers/Caracal.SpringBoot.Workers.General/Caracal.SpringBoot.Workers.General.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

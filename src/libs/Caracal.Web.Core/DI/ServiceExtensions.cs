@@ -21,7 +21,7 @@ public static class ServiceExtensions {
 
     return services;
   }
-
+  
   private static Func<Type, Type, IServiceCollection> GetIsolationLevel(this IServiceCollection services,  Type t) {
     if (t.IsAssignableTo(typeof(IScopedInjectable)))
       return services.AddScoped;

@@ -10,7 +10,7 @@ RUN dotnet restore
 RUN dotnet build SpringBoot.sln -c Release -o /app/build -f:net7.0
 
 FROM build AS publish
-RUN dotnet publish SpringBoot.sln -c Release -o /app/publish
+RUN dotnet publish src/Caracal.SpringBoot.Api/Caracal.SpringBoot.Api.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

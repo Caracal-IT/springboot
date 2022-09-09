@@ -6,8 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Caracal.SpringBoot.Application\Caracal.SpringBoot.Application.csproj" />
-    </ItemGroup>
-
 </Project>

@@ -1,5 +1,5 @@
 // ReSharper disable ClassNeverInstantiated.Global
-namespace Caracal.SpringBoot.Business.Handlers;
+namespace Caracal.SpringBoot.Application.Handlers;
 
 public record RegisterUserRequestParameters(int Id) : IHttpRequestParameters;
 

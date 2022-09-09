@@ -22,7 +22,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\libs\Caracal.SpringBoot.Data.Postgres\Caracal.SpringBoot.Data.Postgres.csproj" />
+        <ProjectReference Include="..\libs\Caracal.SpringBoot.Data\Caracal.SpringBoot.Data.csproj" />
         <ProjectReference Include="..\libs\Caracal.SpringBoot.Templates\Caracal.SpringBoot.Templates.csproj" />
+        <ProjectReference Include="..\libs\Caracal.Web.Core\Caracal.Web.Core.csproj" />
     </ItemGroup>
 
 </Project>

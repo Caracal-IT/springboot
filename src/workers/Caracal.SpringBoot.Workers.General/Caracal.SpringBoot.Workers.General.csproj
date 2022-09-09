@@ -16,4 +16,8 @@
         <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
         <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.0-beta7" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\libs\Caracal.Web.Core\Caracal.Web.Core.csproj" />
+    </ItemGroup>
 </Project>

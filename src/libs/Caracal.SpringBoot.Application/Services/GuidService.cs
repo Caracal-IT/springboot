@@ -1,6 +1,6 @@
-using Caracal.SpringBoot.Business.Repositories;
+using Caracal.SpringBoot.Application.Repositories;
 
-namespace Caracal.SpringBoot.Business.Services;
+namespace Caracal.SpringBoot.Application.Services;
 
 public class GuidService : IGuidService, IScopedInjectable {
   public GuidService(IGuidRepository repository) =>

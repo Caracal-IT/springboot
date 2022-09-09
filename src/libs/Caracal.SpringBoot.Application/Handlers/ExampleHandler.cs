@@ -1,9 +1,8 @@
 // ReSharper disable ClassNeverInstantiated.Global
 
-using Caracal.SpringBoot.Business.UseCases.Example;
-using Mapster;
+using Caracal.SpringBoot.Application.UseCases.Example;
 
-namespace Caracal.SpringBoot.Business.Handlers;
+namespace Caracal.SpringBoot.Application.Handlers;
 
 public record ExampleRequest(string Age, string Name) : IHttpRequest;
 

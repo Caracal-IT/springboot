@@ -1,4 +1,4 @@
-namespace Caracal.SpringBoot.Business.UseCases.Example;
+namespace Caracal.SpringBoot.Application.UseCases.Example;
 
 public interface IExampleUseCase {
   public Task<PersonResponse> Execute(PersonRequest request, CancellationToken cancellationToken);
