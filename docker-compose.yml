@@ -18,6 +18,7 @@ services:
     environment:
       - ElasticApm:ServerUrl=http://host.docker.internal:8200
       - ElasticConfiguration:Uri=http://host.docker.internal:9200
+      - ConnectionStrings:StringBoot=Server=host.docker.internal;Port=5433;Database=springboot;User Id=postgres;Password=postgress;
   
   worker-general:
     build:
@@ -59,7 +60,7 @@ services:
       - POSTGRES_PASSWORD=postgress
       - POSTGRES_DB=postgres
     ports:
-      - "5433:5432"
+      - "5434:5432"
     volumes:
       - /Users/ettienemare/Documents/Development/postgres/springboot:/var/lib/postgresql/data
     networks:
