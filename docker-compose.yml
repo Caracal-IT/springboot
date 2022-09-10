@@ -1,5 +1,29 @@
 version: "3.9"
 services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgress
+      - POSTGRES_DB=springboot
+    ports:
+      - "5434:5432"
+    volumes:
+      - /Users/ettienemare/Documents/Development/postgres/springboot:/var/lib/postgresql/data
+    networks:
+      - springboot-network
+      
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    networks:
+      - springboot-network
+    volumes:
+      - cache:/data
+    
   web:
     build:
       context: .
@@ -11,6 +35,10 @@ services:
       - "8181:443"
     depends_on:
       - "postgres"
+      - "cache"
+    links:
+      - postgres
+      - cache
     networks:
       - springboot-network
     extra_hosts:
@@ -18,8 +46,10 @@ services:
     environment:
       - ElasticApm:ServerUrl=http://host.docker.internal:8200
       - ElasticConfiguration:Uri=http://host.docker.internal:9200
-      - ConnectionStrings:StringBoot=Server=host.docker.internal;Port=5433;Database=springboot;User Id=postgres;Password=postgress;
-  
+      - ConnectionStrings:StringBoot2=Server=postgres;Port=5434;Database=springboot;Username=postgres;Password=postgress;Pooling=true;
+      - ConnectionStrings:StringBoot=Host=postgres;Username=postgres;Password=postgress;Database=springboot;Pooling=true;
+      - ConnectionStrings:Redis=cache:6379,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      
   worker-general:
     build:
       context: .
@@ -27,7 +57,8 @@ services:
         - NODE_ENV=local
       dockerfile: Dockerfile_Worker_General
     depends_on:
-      - "postgres"
+      - postgres
+      - cache
     networks:
       - springboot-network
     environment:
@@ -44,28 +75,19 @@ services:
       - "9090:80"
       - "9191:443"
     depends_on:
-      - "postgres"
+      - postgres
+      - cache
     networks:
       - springboot-network
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
       - ElasticApm:ServerUrl=http://host.docker.internal:8200
-      - ElasticConfiguration:Uri=http://host.docker.internal:9200
-    
-  postgres:
-    image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgress
-      - POSTGRES_DB=postgres
-    ports:
-      - "5434:5432"
-    volumes:
-      - /Users/ettienemare/Documents/Development/postgres/springboot:/var/lib/postgresql/data
-    networks:
-      - springboot-network
-        
+      - ElasticConfiguration:Uri=http://host.docker.internal:9200    
 networks:
   springboot-network:
     driver: bridge
+    
+volumes:
+  cache:
+    driver: local

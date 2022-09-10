@@ -20,8 +20,10 @@ builder.Services
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("StringBoot")));
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(_ => {
-  var c = ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")!);
+  var connStr = builder.Configuration.GetConnectionString("Redis");
+  var c = ConnectionMultiplexer.Connect(connStr!);
   c.UseElasticApm();
+  
   return c;
 });
 
@@ -32,7 +34,5 @@ app.UseSpringBoot();
 app.MapGet("withdrawals", async (GetWithdrawals getWithdrawals) => await getWithdrawals.ExecuteAsync());
 
 app.UseAllElasticApm(app.Configuration);
-
-
 
 app.Run();
