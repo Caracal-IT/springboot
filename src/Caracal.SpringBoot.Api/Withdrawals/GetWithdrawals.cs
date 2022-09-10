@@ -21,15 +21,15 @@ public class GetWithdrawals {
   }
 
   public async Task<List<Withdrawal>> ExecuteAsync() {
-    var recordKey = $"Users_{DateTime.Now:yyyyMMdd_hhmm}";
+    var recordKey = $"U{nameof(ExecuteAsync)}_{DateTime.Now:yyyyMMdd_hhmm}";
     
     var withdrawals = await _multiplexer.GetRecordAsync<List<Withdrawal>>(recordKey);
 
-    if (withdrawals == null) {
-      withdrawals = _dbContext.Withdrawals.ToList();
-      await Task.Delay(100);
-      await _multiplexer.SetRecordAsync(recordKey, withdrawals);
-    }
+    if (withdrawals != null) return withdrawals;
+    
+    withdrawals = _dbContext.Withdrawals.ToList();
+    await Task.Delay(100);
+    await _multiplexer.SetRecordAsync(recordKey, withdrawals);
 
     return withdrawals;
   }
