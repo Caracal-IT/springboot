@@ -1,36 +1,38 @@
+using Caracal.SpringBoot.Api.Withdrawals;
 using Caracal.SpringBoot.Application;
-using Caracal.SpringBoot.Application.Repositories;
 using Caracal.SpringBoot.Data;
 using Caracal.SpringBoot.Data.Postgres;
 using Caracal.Web.Core.DI;
 using Elastic.Apm.NetCoreAll;
+using Elastic.Apm.StackExchange.Redis;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args)
                             .WithSerilog();
+
+builder.Services.AddScoped(typeof(GetWithdrawals));
 
 builder.Services
        .AddSpringBoot()
        .AddSpringBootData();
 
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("StringBoot")));
-builder.Services.AddTransient<IDataContext, MockDataContext>();
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(_ => {
+  var c = ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")!);
+  c.UseElasticApm();
+  return c;
+});
 
 var app = builder.Build();
 
-app.UseAllElasticApm(app.Configuration);
 app.UseSpringBoot();
 
+app.MapGet("withdrawals", async (GetWithdrawals getWithdrawals) => await getWithdrawals.ExecuteAsync());
+
+app.UseAllElasticApm(app.Configuration);
+
+
+
 app.Run();
-
-class MockDataContext: IDataContext {
-  private readonly DataContext _dataContext;
-  public MockDataContext(DataContext dataContext) {
-    _dataContext = dataContext;
-  }
-
-
-  public List<string> GetData() {
-    return _dataContext.Withdrawals.Select(w => w.Account).ToList();
-  }
-}
