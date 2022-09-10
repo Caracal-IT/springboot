@@ -21,7 +21,7 @@ public class GetWithdrawals {
   }
 
   public async Task<List<Withdrawal>> ExecuteAsync() {
-    var recordKey = $"U{nameof(ExecuteAsync)}_{DateTime.Now:yyyyMMdd_hhmm}";
+    var recordKey = $"U{nameof(GetWithdrawals)}_{DateTime.Now:yyyyMMdd_hhmm}";
     
     var withdrawals = await _multiplexer.GetRecordAsync<List<Withdrawal>>(recordKey);
 
