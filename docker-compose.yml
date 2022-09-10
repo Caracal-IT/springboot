@@ -42,11 +42,10 @@ services:
     networks:
       - springboot-network
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - host.docker.internal:host-gateway
     environment:
       - ElasticApm:ServerUrl=http://host.docker.internal:8200
       - ElasticConfiguration:Uri=http://host.docker.internal:9200
-      - ConnectionStrings:StringBoot2=Server=postgres;Port=5434;Database=springboot;Username=postgres;Password=postgress;Pooling=true;
       - ConnectionStrings:StringBoot=Host=postgres;Username=postgres;Password=postgress;Database=springboot;Pooling=true;
       - ConnectionStrings:Redis=cache:6379,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
       
@@ -80,7 +79,7 @@ services:
     networks:
       - springboot-network
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - host.docker.internal:host-gateway
     environment:
       - ElasticApm:ServerUrl=http://host.docker.internal:8200
       - ElasticConfiguration:Uri=http://host.docker.internal:9200    

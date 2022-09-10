@@ -1,7 +1,7 @@
 using Caracal.SpringBoot.Api.Caching;
 using Caracal.SpringBoot.Data.Postgres;
 using Caracal.SpringBoot.Data.Postgres.Models.Withdrawals;
-using Microsoft.Extensions.Caching.Distributed;
+//using Microsoft.Extensions.Caching.Distributed;
 using StackExchange.Redis;
 
 namespace Caracal.SpringBoot.Api.Withdrawals; 
@@ -28,7 +28,6 @@ public class GetWithdrawals {
     if (withdrawals != null) return withdrawals;
     
     withdrawals = _dbContext.Withdrawals.ToList();
-    await Task.Delay(100);
     await _multiplexer.SetRecordAsync(recordKey, withdrawals);
 
     return withdrawals;

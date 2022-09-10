@@ -28,11 +28,12 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(_ => {
 });
 
 var app = builder.Build();
+app.UseAllElasticApm(app.Configuration);
 
 app.UseSpringBoot();
 
 app.MapGet("withdrawals", async (GetWithdrawals getWithdrawals) => await getWithdrawals.ExecuteAsync());
 
-app.UseAllElasticApm(app.Configuration);
+
 
 app.Run();
