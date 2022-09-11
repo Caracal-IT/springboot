@@ -15,9 +15,9 @@ RUN dotnet restore
 RUN dotnet build SpringBoot.sln -c Release -o /app/build -f:net7.0
 
 FROM build AS publish
-RUN dotnet publish src/Caracal.SpringBoot.Admin.Api/Caracal.SpringBoot.Admin.Api.csproj -c Release -o /app/publish
+RUN dotnet publish src/Caracal.SpringBoot.Api/Caracal.SpringBoot.Api.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Caracal.SpringBoot.Admin.Api.dll"]
+ENTRYPOINT ["dotnet", "Caracal.SpringBoot.Api.dll"]

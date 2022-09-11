@@ -23,13 +23,28 @@ services:
       - springboot-network
     volumes:
       - cache:/data
-    
+  
   web:
     build:
       context: .
       args:
+        - NODE_ENV=local
+      dockerfile: Dockerfile_Web
+    ports:
+      - "7070:80"
+      - "7171:443"
+    depends_on:
+      - "api"
+      - "admin"
+    networks:
+      - springboot-network 
+    
+  api:
+    build:
+      context: .
+      args:
           - NODE_ENV=local
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_Api
     ports:
       - "8080:80"
       - "8181:443"

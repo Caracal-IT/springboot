@@ -38,9 +38,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5675BB6A-8997-49E3-B91C-CEFA03AB409B}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
-		Dockerfile = Dockerfile
+		Dockerfile_Api = Dockerfile_Api
 		Dockerfile_Admin = Dockerfile_Admin
 		Dockerfile_Worker_General = Dockerfile_Worker_General
+		Dockerfile_Web = Dockerfile_Web
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workers", "workers", "{80090FA4-E17D-41AD-A588-93AA4B23DEC2}"
@@ -55,6 +56,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Data.Postgres", "src\libs\Caracal.SpringBoot.Data.Postgres\Caracal.SpringBoot.Data.Postgres.csproj", "{66FE5B79-9A73-4AE2-8EFE-D676FE194AE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Application", "src\libs\Caracal.SpringBoot.Application\Caracal.SpringBoot.Application.csproj", "{18FAC193-6C52-4EEB-B263-C3D18CEDF73D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kafka", "kafka", "{AEA005EE-C22D-445B-8A9B-C39E2E895BD1}"
+	ProjectSection(SolutionItems) = preProject
+		kafka\docker-compose.yml = kafka\docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Kafka", "src\libs\Caracal.SpringBoot.Kafka\Caracal.SpringBoot.Kafka.csproj", "{56B51346-BEFB-4F4E-BCBE-ACA9B2706A1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Web", "src\Caracal.SpringBoot.Web\Caracal.SpringBoot.Web.csproj", "{BAF6D19F-CE1C-434C-B9D4-8AADBECF1ACF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +84,9 @@ Global
 		{AFBBF0FF-4F1B-4488-9D77-56B429B04B78} = {5675BB6A-8997-49E3-B91C-CEFA03AB409B}
 		{66FE5B79-9A73-4AE2-8EFE-D676FE194AE7} = {A2247581-4C6D-4661-8241-0404E4A0E58C}
 		{18FAC193-6C52-4EEB-B263-C3D18CEDF73D} = {A2247581-4C6D-4661-8241-0404E4A0E58C}
+		{AEA005EE-C22D-445B-8A9B-C39E2E895BD1} = {5675BB6A-8997-49E3-B91C-CEFA03AB409B}
+		{56B51346-BEFB-4F4E-BCBE-ACA9B2706A1C} = {A2247581-4C6D-4661-8241-0404E4A0E58C}
+		{BAF6D19F-CE1C-434C-B9D4-8AADBECF1ACF} = {984EBB66-07F8-45FD-8617-B2F7648DDCDA}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFE09C4E-592B-455B-9170-D25419CCFB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -112,5 +125,13 @@ Global
 		{18FAC193-6C52-4EEB-B263-C3D18CEDF73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18FAC193-6C52-4EEB-B263-C3D18CEDF73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18FAC193-6C52-4EEB-B263-C3D18CEDF73D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56B51346-BEFB-4F4E-BCBE-ACA9B2706A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56B51346-BEFB-4F4E-BCBE-ACA9B2706A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56B51346-BEFB-4F4E-BCBE-ACA9B2706A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56B51346-BEFB-4F4E-BCBE-ACA9B2706A1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAF6D19F-CE1C-434C-B9D4-8AADBECF1ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAF6D19F-CE1C-434C-B9D4-8AADBECF1ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAF6D19F-CE1C-434C-B9D4-8AADBECF1ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAF6D19F-CE1C-434C-B9D4-8AADBECF1ACF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

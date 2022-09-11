@@ -4,15 +4,22 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y \
+        nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /
 COPY . .
 RUN dotnet restore
 RUN dotnet build SpringBoot.sln -c Release -o /app/build -f:net7.0
 
 FROM build AS publish
-RUN dotnet publish src/Caracal.SpringBoot.Api/Caracal.SpringBoot.Api.csproj -c Release -o /app/publish
+RUN dotnet publish src/Caracal.SpringBoot.Web/Caracal.SpringBoot.Web.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Caracal.SpringBoot.Api.dll"]
+ENTRYPOINT ["dotnet", "Caracal.SpringBoot.Web.dll"]
