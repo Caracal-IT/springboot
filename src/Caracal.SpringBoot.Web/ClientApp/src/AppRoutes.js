@@ -4,16 +4,16 @@ import { Home } from "./components/Home";
 
 const AppRoutes = [
   {
-    index: true,
-    element: <Home />
+    path: '/',
+    component: Home
   },
   {
     path: '/counter',
-    element: <Counter />
+    component: Counter
   },
   {
     path: '/fetch-data',
-    element: <FetchData />
+    component: FetchData
   }
 ];
 

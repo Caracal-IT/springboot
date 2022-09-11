@@ -5,8 +5,17 @@ export class Counter extends Component {
 
   constructor(props) {
     super(props);
+    
+    const transaction = Window.apm.startTransaction('Counter_load', 'custom', { managed: false });
+    const httpSpan = transaction.startSpan('GET ', 'custom', { blocking: true });
+    
     this.state = { currentCount: 0 };
     this.incrementCounter = this.incrementCounter.bind(this);
+
+    setTimeout(() => {
+      httpSpan.end();
+      transaction.end();
+    }, 0);
   }
 
   incrementCounter() {

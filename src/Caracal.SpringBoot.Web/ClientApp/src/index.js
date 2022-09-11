@@ -5,10 +5,21 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { init as initApm } from "@elastic/apm-rum";
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
+
+const apm = initApm({
+    serviceName: "SpringBoot React",
+    serverUrl: "/proxy/intake/v2/rum/events", //"http://localhost:8200",
+    // Set the service version (required for source map feature)
+    serviceVersion: "1.0",
+    environment: 'development' //process.env.NODE_ENV
+});
+
+Window.apm = apm;
 
 root.render(
   <BrowserRouter basename={baseUrl}>
