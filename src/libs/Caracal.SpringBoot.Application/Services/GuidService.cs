@@ -2,7 +2,7 @@ using Caracal.SpringBoot.Application.Repositories;
 
 namespace Caracal.SpringBoot.Application.Services;
 
-public class GuidService : IGuidService, IScopedInjectable {
+public sealed class GuidService : IGuidService, IScopedInjectable {
   public GuidService(IGuidRepository repository) =>
     Id = repository.GetNewId();
 

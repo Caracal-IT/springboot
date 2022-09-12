@@ -13,7 +13,7 @@ const root = createRoot(rootElement);
 
 const apm = initApm({
     serviceName: "SpringBoot React",
-    serverUrl: "/proxy", //"http://localhost:8200",
+    serverUrl: "proxy", //"http://localhost:8200",
     // Set the service version (required for source map feature)
     serviceVersion: "1.0",
     environment: 'development' //process.env.NODE_ENV

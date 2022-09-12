@@ -29,6 +29,7 @@ services:
       context: .
       args:
         - NODE_ENV=local
+        - ASPNETCORE_ENVIRONMENT=Release
       dockerfile: Dockerfile_Web
     ports:
       - "7070:80"
@@ -36,6 +37,10 @@ services:
     depends_on:
       - "api"
       - "admin"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      ASPNETCORE_ENVIRONMENT: Release
     networks:
       - springboot-network 
     
@@ -44,6 +49,7 @@ services:
       context: .
       args:
           - NODE_ENV=local
+          - ASPNETCORE_ENVIRONMENT=Release
       dockerfile: Dockerfile_Api
     ports:
       - "8080:80"
@@ -69,6 +75,7 @@ services:
       context: .
       args:
         - NODE_ENV=local
+        - ASPNETCORE_ENVIRONMENT=Release
       dockerfile: Dockerfile_Worker_General
     depends_on:
       - postgres
@@ -84,6 +91,7 @@ services:
       context: .
       args:
         - NODE_ENV=local
+        - ASPNETCORE_ENVIRONMENT=Release
       dockerfile: Dockerfile_Admin
     ports:
       - "9090:80"

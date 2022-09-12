@@ -6,7 +6,7 @@ using StackExchange.Redis;
 
 namespace Caracal.SpringBoot.Api.Withdrawals; 
 
-public class GetWithdrawals {
+public sealed class GetWithdrawals {
   private readonly DataContext _dbContext;
   //private readonly IDistributedCache _cache;
   private readonly IConnectionMultiplexer _multiplexer;

@@ -4,7 +4,7 @@ public interface IExampleUseCase {
   public Task<PersonResponse> Execute(PersonRequest request, CancellationToken cancellationToken);
 }
 
-public class ExampleUseCase: IExampleUseCase, ITransientInjectable {
+public sealed class ExampleUseCase: IExampleUseCase, ITransientInjectable {
   private readonly IGuidService _guidService;
   
   public ExampleUseCase(IGuidService guidService) =>

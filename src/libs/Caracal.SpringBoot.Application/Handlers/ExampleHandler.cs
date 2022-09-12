@@ -3,12 +3,12 @@ using Caracal.SpringBoot.Application.UseCases.Example;
 
 namespace Caracal.SpringBoot.Application.Handlers;
 
-public record ExampleRequest(string Age, string Name) : IHttpRequest;
+public sealed record ExampleRequest(string Age, string Name) : IHttpRequest;
 
-public record ExampleResponse(string Message, Guid Id);
+public sealed record ExampleResponse(string Message, Guid Id);
 
 [HttpGet("example/{name}")]
-public class ExampleHandler : IRequestHandler<ExampleRequest, IResult> {
+public sealed class ExampleHandler : IRequestHandler<ExampleRequest, IResult> {
   private readonly IExampleUseCase _useCase;
 
   public ExampleHandler(IExampleUseCase useCase) =>

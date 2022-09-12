@@ -1,6 +1,6 @@
 namespace Caracal.SpringBoot.Workers.General.Workers;
 
-public class Worker : BackgroundService {
+public sealed class Worker : BackgroundService {
   private readonly ILogger<Worker> _logger;
 
   public Worker(ILogger<Worker> logger) {

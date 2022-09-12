@@ -21,7 +21,7 @@ public class TemplateService : ITemplateService {
   private string GetFullPath(string relativePath) {
     var directoryContents = _fileProvider.GetDirectoryContents(relativePath);
 
-    return directoryContents.Exists ? directoryContents.First().PhysicalPath : string.Empty;
+    return directoryContents.Exists ? directoryContents.First().PhysicalPath??string.Empty : string.Empty;
   }
 }
 

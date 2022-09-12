@@ -1,8 +1,8 @@
 namespace Caracal.SpringBoot.Data.Repositories;
 
-//public class GuidRepository : IGuidRepository, ITransientInjectable {
-//public class GuidRepository : IGuidRepository, IScopedInjectable {
-public class GuidRepository : IGuidRepository, ISingletonInjectable {
+//public sealed class GuidRepository : IGuidRepository, ITransientInjectable {
+//public sealed class GuidRepository : IGuidRepository, IScopedInjectable {
+public sealed class GuidRepository : IGuidRepository, ISingletonInjectable {
   private Guid _defaultGuid = Guid.Empty;
   private readonly object _theLock = new ();
   

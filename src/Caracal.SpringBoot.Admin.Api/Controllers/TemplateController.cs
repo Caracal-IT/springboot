@@ -5,9 +5,8 @@ namespace Caracal.SpringBoot.Admin.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class TemplateController : ControllerBase {
+public sealed class TemplateController : ControllerBase {
   private readonly ITemplateService _templateService;
-  private IHostEnvironment _environment;
   private readonly IFileProvider _fileProvider;
   private readonly ILogger<TemplateController> _logger;
 
@@ -15,7 +14,6 @@ public class TemplateController : ControllerBase {
     _templateService = templateService;
     _logger = logger;
     _fileProvider = environment.ContentRootFileProvider;
-    _environment = environment;
   }
 
   [HttpGet("default")]

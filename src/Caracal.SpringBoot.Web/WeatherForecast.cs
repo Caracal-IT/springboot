@@ -1,6 +1,6 @@
 namespace Caracal.SpringBoot.Web;
 
-public class WeatherForecast {
+public sealed class WeatherForecast {
   public DateTime Date { get; set; }
 
   public int TemperatureC { get; set; }

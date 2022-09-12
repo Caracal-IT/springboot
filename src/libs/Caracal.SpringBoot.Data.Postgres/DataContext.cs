@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Caracal.SpringBoot.Data.Postgres; 
 
-public class DataContext: DbContext {
+public sealed class DataContext: DbContext {
   public DataContext(DbContextOptions<DataContext> options) : base(options) { }
   public DbSet<Withdrawal> Withdrawals { get; set; } = null!;
 

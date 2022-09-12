@@ -1,3 +1,3 @@
 ﻿namespace Caracal.SpringBoot.Templates;
 
-public class TemplateReader { }
+public sealed class TemplateReader { }
