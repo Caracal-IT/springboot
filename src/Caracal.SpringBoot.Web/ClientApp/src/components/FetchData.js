@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import {pageLoad} from "../apm";
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+
+    pageLoad('fetch-data', () => {
+      this.state = {forecasts: [], loading: true};
+    });
   }
 
   componentDidMount() {

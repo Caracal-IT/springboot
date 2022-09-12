@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import {pageLoad} from "../apm";
 
 export class Home extends Component {
   static displayName = Home.name;
+  
+  constructor() {
+      super();
+
+      pageLoad('home', () => {});
+  }
 
   render() {
     return (
