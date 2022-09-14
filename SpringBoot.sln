@@ -60,6 +60,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kafka", "kafka", "{AEA005EE-C22D-445B-8A9B-C39E2E895BD1}"
 	ProjectSection(SolutionItems) = preProject
 		kafka\docker-compose.yml = kafka\docker-compose.yml
+		kafka\docker-compose-dev.yml = kafka\docker-compose-dev.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caracal.SpringBoot.Kafka", "src\libs\Caracal.SpringBoot.Kafka\Caracal.SpringBoot.Kafka.csproj", "{56B51346-BEFB-4F4E-BCBE-ACA9B2706A1C}"

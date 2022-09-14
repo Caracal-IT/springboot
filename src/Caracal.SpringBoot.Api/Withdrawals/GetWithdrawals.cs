@@ -1,6 +1,7 @@
 using Caracal.SpringBoot.Api.Caching;
 using Caracal.SpringBoot.Data.Postgres;
 using Caracal.SpringBoot.Data.Postgres.Models.Withdrawals;
+using Caracal.SpringBoot.Kafka;
 //using Microsoft.Extensions.Caching.Distributed;
 using StackExchange.Redis;
 
@@ -20,7 +21,13 @@ public sealed class GetWithdrawals {
     _multiplexer = multiplexer;
   }
 
-  public async Task<List<Withdrawal>> ExecuteAsync() {
+  public async Task<List<Withdrawal>> ExecuteAsync(CancellationToken cancellationToken) {
+    var p = new Producer();
+    //p.Send();
+    await p.SendAsync("withdrawals", cancellationToken);
+    
+    
+    
     var recordKey = $"U{nameof(GetWithdrawals)}_{DateTime.Now:yyyyMMdd_hhmm}";
     
     var withdrawals = await _multiplexer.GetRecordAsync<List<Withdrawal>>(recordKey);

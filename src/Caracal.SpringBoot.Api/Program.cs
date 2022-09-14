@@ -32,7 +32,7 @@ app.UseAllElasticApm(app.Configuration);
 
 app.UseSpringBoot();
 
-app.MapGet("withdrawals", async (GetWithdrawals getWithdrawals) => await getWithdrawals.ExecuteAsync());
+app.MapGet("withdrawals", async (GetWithdrawals getWithdrawals, CancellationToken cancellationToken) => await getWithdrawals.ExecuteAsync(cancellationToken));
 
 
 
