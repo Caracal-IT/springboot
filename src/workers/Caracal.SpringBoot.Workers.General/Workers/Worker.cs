@@ -1,3 +1,5 @@
+using Caracal.SpringBoot.Kafka;
+
 namespace Caracal.SpringBoot.Workers.General.Workers;
 
 public sealed class Worker : BackgroundService {
@@ -8,9 +10,14 @@ public sealed class Worker : BackgroundService {
   }
 
   protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
-    while (!stoppingToken.IsCancellationRequested) {
+    await Task.Delay(10);
+    var c = new Consumer();
+    c.Consume(stoppingToken);
+    
+    
+    //while (!stoppingToken.IsCancellationRequested) {
       //_logger.LogInformation("Worker running at: {Time}", DateTimeOffset.Now);
-      await Task.Delay(10000, stoppingToken);
-    }
+    //  await Task.Delay(10000, stoppingToken);
+   // }
   }
 }

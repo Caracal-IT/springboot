@@ -6,16 +6,27 @@ namespace Caracal.SpringBoot.Kafka;
 
 public class Consumer {
   public void Consume(CancellationToken cancellationToken) {
-      var clientConfig = new ClientConfig {
-          BootstrapServers = "localhost:9092",
-      };
-      
-      
+      var config = new Dictionary<string, string>();
+      config.Add("bootstrap.servers", "host.docker.internal:9092, localhost:9092");
+      config.Add("group.id", "kafka-dotnet-getting-started");
+      config.Add("auto.offset.reset", "earliest");
       
       string topic = "withdrawals";
 
-      using (var consumer = new ConsumerBuilder<string, string>(clientConfig).Build()) {
-          
+      using (var consumer = new ConsumerBuilder<string, string>(config).Build()) {
+          consumer.Subscribe(topic);
+          try {
+              while (true) {
+                  var cr = consumer.Consume(cancellationToken);
+                  Console.WriteLine($"Consumed event from topic {topic} with key {cr.Message.Key,-10} and value {cr.Message.Value}");
+              }
+          }
+          catch (OperationCanceledException) {
+              // Ctrl-C was pressed.
+          }
+          finally{
+              consumer.Close();
+          }
       }
   }
 }
