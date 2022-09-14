@@ -1,3 +1,4 @@
+using Caracal.SpringBoot.Data.Postgres.Models.Deposits;
 using Caracal.SpringBoot.Data.Postgres.Models.Withdrawals;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -7,6 +8,7 @@ namespace Caracal.SpringBoot.Data.Postgres;
 public sealed class DataContext: DbContext {
   public DataContext(DbContextOptions<DataContext> options) : base(options) { }
   public DbSet<Withdrawal> Withdrawals { get; set; } = null!;
+  public DbSet<Deposit> Deposits { get; set; } = null!;
 
   protected override void OnModelCreating(ModelBuilder modelBuilder) {
     modelBuilder.Entity<Withdrawal>(w => {
@@ -26,6 +28,24 @@ public sealed class DataContext: DbContext {
       
       w.HasKey(e => e.Id);
     });
+    
+    modelBuilder.Entity<Deposit>(d => {
+      d.ToTable("deposit", "deposits");
+      d.Property(e => e.Id)
+        .HasColumnName("id")
+        .HasIdentityOptions();
+      d.Property(e => e.Account).HasColumnName("account");
+      d.Property(e => e.Amount).HasColumnName("amount");
+      d.Property(e => e.DepositedDate)
+        .HasColumnName("deposited_date")
+        .HasDefaultValueSql("now()");
+      
+      d.Property(e => e.Status)
+        .HasColumnName("status")
+        .HasDefaultValue(0);
+      
+      d.HasKey(e => e.Id);
+    });
   }
 }
 
@@ -34,7 +54,7 @@ public class DataContextFactory : IDesignTimeDbContextFactory<DataContext>
   public DataContext CreateDbContext(string[] args)
   {
     var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
-    optionsBuilder.UseNpgsql("Server=localhost;Port=5433;Database=springboot;User Id=postgres;Password=postgress;");
+    optionsBuilder.UseNpgsql("Server=localhost;Port=5434;Database=springboot;User Id=postgres;Password=postgress;");
 
     return new DataContext(optionsBuilder.Options);
   }
