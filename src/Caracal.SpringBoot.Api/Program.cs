@@ -2,7 +2,9 @@ using Caracal.SpringBoot.Api.Withdrawals;
 using Caracal.SpringBoot.Application;
 using Caracal.SpringBoot.Data;
 using Caracal.SpringBoot.Data.Postgres;
+using Caracal.SpringBoot.Kafka;
 using Caracal.Web.Core.DI;
+using Caracal.Web.Core.Messaging;
 using Elastic.Apm.NetCoreAll;
 using Elastic.Apm.StackExchange.Redis;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,7 @@ builder.Services.AddScoped(typeof(GetWithdrawals));
 builder.Services
        .AddSpringBoot()
        .AddSpringBootData();
+      // .AddSingleton<IWriteOnlyQueue, Producer>();
 
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("StringBoot")));
 

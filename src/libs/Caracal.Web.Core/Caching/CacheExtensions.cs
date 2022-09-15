@@ -1,19 +1,19 @@
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace Caracal.SpringBoot.Api.Caching; 
+namespace Caracal.Web.Core.Caching; 
 
-public static class CacheHelper {
+public static class CacheExtensions {
   public static async Task SetRecordAsync<T>(this IDistributedCache cache,
     string recordId,
     T data,
     TimeSpan? absoluteExpireTime = null,
     TimeSpan? slidingExpireTime = null)
   {
-    var options = new DistributedCacheEntryOptions();
-
-    options.AbsoluteExpirationRelativeToNow = absoluteExpireTime ?? TimeSpan.FromSeconds(60);
-    options.SlidingExpiration = slidingExpireTime;
+    var options = new DistributedCacheEntryOptions {
+      AbsoluteExpirationRelativeToNow = absoluteExpireTime ?? TimeSpan.FromSeconds(60),
+      SlidingExpiration = slidingExpireTime
+    };
 
     var jsonData = JsonSerializer.Serialize(data);
     await cache.SetStringAsync(recordId, jsonData, options);
@@ -25,9 +25,7 @@ public static class CacheHelper {
     var jsonData = await cache.GetStringAsync(recordId);
 
     if (jsonData is null)
-    {
-      return default(T);
-    }
+      return default;
 
     return JsonSerializer.Deserialize<T>(jsonData);
   }

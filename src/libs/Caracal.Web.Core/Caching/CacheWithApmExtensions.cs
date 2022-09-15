@@ -1,9 +1,9 @@
 using System.Text.Json;
 using StackExchange.Redis;
 
-namespace Caracal.SpringBoot.Api.Caching; 
+namespace Caracal.Web.Core.Caching; 
 
-public static class CacheHelperWithApm {
+public static class CacheWithApmExtensions {
   public static async Task SetRecordAsync<T>(this IConnectionMultiplexer multiplexer, string recordId, T data, TimeSpan? absoluteExpireTime = null) {
     var expiryTime = absoluteExpireTime ?? TimeSpan.FromSeconds(60);
     var jsonData = JsonSerializer.Serialize(data);

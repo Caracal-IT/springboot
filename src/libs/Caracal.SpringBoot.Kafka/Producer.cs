@@ -1,9 +1,12 @@
+using Caracal.Web.Core.Messaging;
 using Confluent.Kafka;
-using Confluent.Kafka.Admin;
 
 namespace Caracal.SpringBoot.Kafka;
 
-public class Producer {
+public class Producer: IWriteOnlyQueue {
+  public bool Publish<T>(string name, T message, CancellationToken cancellationToken) {
+    return true;
+  }
   public void Send() {
     var clientConfig = new ClientConfig();
     clientConfig.BootstrapServers = "localhost:9092";

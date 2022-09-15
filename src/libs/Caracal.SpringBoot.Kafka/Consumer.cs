@@ -1,87 +1,46 @@
+using System.Text.Json;
 using Confluent.Kafka;
-using System;
-using System.Threading;
+using Caracal.Web.Core.Messaging;
 
-namespace Caracal.SpringBoot.Kafka; 
+namespace Caracal.SpringBoot.Kafka;
 
-public class Consumer {
-  public void Consume(CancellationToken cancellationToken) {
-      var config = new Dictionary<string, string>();
-      config.Add("bootstrap.servers", "host.docker.internal:9092, localhost:9092");
-      config.Add("group.id", "kafka-dotnet-getting-started");
-      config.Add("auto.offset.reset", "earliest");
-      
-      string topic = "withdrawals";
+public class Consumer : IReadonlyQueue {
+    private readonly Dictionary<string, string> _config;
 
-      using (var consumer = new ConsumerBuilder<string, string>(config).Build()) {
-          consumer.Subscribe(topic);
-          try {
-              while (true) {
-                  var cr = consumer.Consume(cancellationToken);
-                  Console.WriteLine($"Consumed event from topic {topic} with key {cr.Message.Key,-10} and value {cr.Message.Value}");
-              }
-          }
-          catch (OperationCanceledException) {
-              // Ctrl-C was pressed.
-          }
-          finally{
-              consumer.Close();
-          }
-      }
-  }
-}
+    public Consumer() {
+        _config = new Dictionary<string, string> {
+            {"bootstrap.servers", "host.docker.internal:9092, localhost:9092"},
+            {"group.id", "kafka-dotnet-getting-started"},
+            {"auto.offset.reset", "earliest"}
+        };
+    }
 
-/*
- using Confluent.Kafka;
-using System;
-using System.Threading;
-using Microsoft.Extensions.Configuration;
+    public IEnumerable<T> Subscribe<T>(string topic, CancellationToken cancellationToken) {
+        using var consumer = new ConsumerBuilder<string, string>(_config).Build();
+        consumer.Subscribe(topic);
 
-class Consumer {
+        while (!cancellationToken.IsCancellationRequested) {
+            var result = TryConsume(consumer, cancellationToken);
 
-    static void Main(string[] args)
-    {
-        if (args.Length != 1) {
-            Console.WriteLine("Please provide the configuration file path as a command line argument");
+            if (result?.Message?.Value == null || cancellationToken.IsCancellationRequested)
+                continue;
+
+            var message = JsonSerializer.Deserialize<T>(result.Message.Value);
+
+            if (message != null)
+                yield return message;
         }
 
-        IConfiguration configuration = new ConfigurationBuilder()
-            .AddIniFile(args[0])
-            .Build();
+        consumer.Close();
+    }
 
-        configuration["group.id"] = "kafka-dotnet-getting-started";
-        configuration["auto.offset.reset"] = "earliest";
-
-        const string topic = "purchases";
-
-        CancellationTokenSource cts = new CancellationTokenSource();
-        Console.CancelKeyPress += (_, e) => {
-            e.Cancel = true; // prevent the process from terminating.
-            cts.Cancel();
-        };
-
-        using (var consumer = new ConsumerBuilder<string, string>(
-            configuration.AsEnumerable()).Build())
-        {
-            consumer.Subscribe(topic);
-            try {
-                while (true) {
-                    var cr = consumer.Consume(cts.Token);
-                    Console.WriteLine($"Consumed event from topic {topic} with key {cr.Message.Key,-10} and value {cr.Message.Value}");
-                }
-            }
-            catch (OperationCanceledException) {
-                // Ctrl-C was pressed.
-            }
-            finally{
-                consumer.Close();
-            }
+    private static ConsumeResult<string, string>? TryConsume(IConsumer<string, string> consumer, CancellationToken cancellationToken) {
+        try {
+            return consumer.Consume(cancellationToken);
+        }
+        catch (OperationCanceledException) {
+            Console.WriteLine("Operation Canceled");
+            return null;
         }
     }
 }
- 
- 
- 
- 
-
- */

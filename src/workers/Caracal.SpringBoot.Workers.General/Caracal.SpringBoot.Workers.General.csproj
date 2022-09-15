@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\libs\Caracal.SpringBoot.Data.Postgres\Caracal.SpringBoot.Data.Postgres.csproj" />
       <ProjectReference Include="..\..\libs\Caracal.SpringBoot.Kafka\Caracal.SpringBoot.Kafka.csproj" />
       <ProjectReference Include="..\..\libs\Caracal.Web.Core\Caracal.Web.Core.csproj" />
     </ItemGroup>

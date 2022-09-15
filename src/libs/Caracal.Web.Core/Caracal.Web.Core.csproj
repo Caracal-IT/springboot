@@ -13,5 +13,6 @@
         <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
         <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
         <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.0-beta7" />
+        <PackageReference Include="StackExchange.Redis" Version="2.6.66" />
     </ItemGroup>
 </Project>
