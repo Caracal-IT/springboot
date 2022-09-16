@@ -5,13 +5,14 @@ using Caracal.Web.Core.Messaging;
 namespace Caracal.SpringBoot.Kafka;
 
 public class Consumer : IReadonlyQueue {
-    private readonly Dictionary<string, string> _config;
+    private readonly ConsumerConfig _config;
 
     public Consumer() {
-        _config = new Dictionary<string, string> {
-            {"bootstrap.servers", "host.docker.internal:9092, localhost:9092"},
-            {"group.id", "kafka-dotnet-getting-started"},
-            {"auto.offset.reset", "earliest"}
+        _config = new ConsumerConfig
+        {
+            BootstrapServers = "host.docker.internal:19092,localhost:9092",
+            GroupId = "kafka-dotnet-getting-started",
+            AutoOffsetReset = AutoOffsetReset.Earliest
         };
     }
 
