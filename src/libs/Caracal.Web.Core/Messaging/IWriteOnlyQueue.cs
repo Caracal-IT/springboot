@@ -1,5 +1,5 @@
 namespace Caracal.Web.Core.Messaging; 
 
 public interface IWriteOnlyQueue {
-  bool Publish<T>(string name, T message, CancellationToken cancellationToken);
+  Task<bool> PublishAsync<T>(string name, KeyValuePair<string, T> message, CancellationToken cancellationToken);
 }

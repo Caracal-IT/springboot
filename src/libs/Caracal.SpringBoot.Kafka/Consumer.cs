@@ -15,7 +15,7 @@ public class Consumer : IReadonlyQueue {
         };
     }
 
-    public IEnumerable<T> Subscribe<T>(string topic, CancellationToken cancellationToken) {
+    public IEnumerable<KeyValuePair<string, T>> Subscribe<T>(string topic, CancellationToken cancellationToken) {
         using var consumer = new ConsumerBuilder<string, string>(_config).Build();
         consumer.Subscribe(topic);
 
@@ -28,7 +28,7 @@ public class Consumer : IReadonlyQueue {
             var message = JsonSerializer.Deserialize<T>(result.Message.Value);
 
             if (message != null)
-                yield return message;
+                yield return new KeyValuePair<string, T>(result.Message.Key, message);
         }
 
         consumer.Close();

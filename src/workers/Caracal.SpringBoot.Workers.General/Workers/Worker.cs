@@ -37,7 +37,7 @@ public sealed class Worker : BackgroundService {
 
   private void ProcessDeposits(CancellationToken stoppingToken) {
     foreach (var deposit in _queue.Subscribe<Deposit>(nameof(Deposit), stoppingToken)) {
-      ProcessDeposit(deposit, stoppingToken);
+      ProcessDeposit(deposit.Value, stoppingToken);
     }
   }
 

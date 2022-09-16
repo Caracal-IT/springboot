@@ -1,9 +1,9 @@
 namespace Caracal.SpringBoot.Data.Postgres.Models.Deposits; 
 
-public class Deposit {
+public sealed class Deposit {
   public int Id { get; set; }
-  public string Account { get; set; } = "";
+  public string Account { get; set; } = "Unknown";
   public decimal Amount { get; set; }
-  public DateTime DepositedDate { get; set; }
+  public DateTime DepositedDate { get; set; } = DateTime.Now;
   public int Status { get; set; }
 }
