@@ -27,5 +27,5 @@ void RegisterServices(IServiceCollection services) {
 
 void RegisterWorkers(IServiceCollection services) {
   services.AddHostedService<Worker>()
-    .AddHostedService<Worker2>();
+          .AddHostedService<Worker2>();
 }

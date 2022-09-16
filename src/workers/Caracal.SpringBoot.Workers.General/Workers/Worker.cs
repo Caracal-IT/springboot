@@ -7,26 +7,24 @@ namespace Caracal.SpringBoot.Workers.General.Workers;
 public sealed class Worker : BackgroundService {
   private readonly ILogger<Worker> _logger;
   private readonly IReadonlyQueue _queue;
-  private readonly DataContext _dbContext;
+  private readonly IServiceProvider _serviceProvider;
 
-  public Worker(ILogger<Worker> logger, IReadonlyQueue queue, DataContext dbContext) {
+  public Worker(ILogger<Worker> logger, IReadonlyQueue queue, IServiceProvider serviceProvider) {
     _logger = logger;
     _queue = queue;
-    _dbContext = dbContext;
+    _serviceProvider = serviceProvider;
   }
 
-  protected override Task ExecuteAsync(CancellationToken stoppingToken) {
+  protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
     while (!stoppingToken.IsCancellationRequested) {
-      if (!TryProcessDeposits(stoppingToken))
+      if (!await TryProcessDepositsAsync(stoppingToken))
         break;
     }
-
-    return Task.CompletedTask;
   }
 
-  private bool TryProcessDeposits(CancellationToken stoppingToken) {
+  private async Task<bool> TryProcessDepositsAsync(CancellationToken stoppingToken) {
     try {
-      ProcessDeposits(stoppingToken);
+      await ProcessDepositsAsync(stoppingToken);
       return true;
     }
     catch (Exception exception) {
@@ -35,14 +33,17 @@ public sealed class Worker : BackgroundService {
     }
   }
 
-  private void ProcessDeposits(CancellationToken stoppingToken) {
+  private async Task ProcessDepositsAsync(CancellationToken stoppingToken) {
     foreach (var deposit in _queue.Subscribe<Deposit>(nameof(Deposit), stoppingToken)) {
-      ProcessDeposit(deposit.Value, stoppingToken);
+      await ProcessDepositAsync(deposit.Value, stoppingToken);
     }
   }
 
-  private void ProcessDeposit(Deposit deposit, CancellationToken stoppingToken) {
-    _dbContext.Deposits.AddAsync(deposit, stoppingToken);
-    _dbContext.SaveChangesAsync(stoppingToken);
+  private async Task ProcessDepositAsync(Deposit deposit, CancellationToken stoppingToken) {
+    using var scope = _serviceProvider.CreateScope();
+    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+    await dataContext.Deposits.AddAsync(deposit, stoppingToken);
+    await dataContext.SaveChangesAsync(stoppingToken);
   }
 }
