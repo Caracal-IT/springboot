@@ -54,7 +54,6 @@ public class Consumer : IReadonlyQueue {
             return consumer.Consume(cancellationToken);
         }
         catch (OperationCanceledException) {
-            Console.WriteLine("Operation Canceled");
             return null;
         }
         catch (Exception exception) {
