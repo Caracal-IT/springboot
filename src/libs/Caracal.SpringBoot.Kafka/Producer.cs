@@ -1,14 +1,14 @@
 namespace Caracal.SpringBoot.Kafka;
 
 public class Producer : IWriteOnlyQueue {
-  private readonly ILogger<Producer> _logger;
-  private readonly string _bootstrapServers;
   private readonly double _timeout;
-
-  public Producer(ILogger<Producer> logger) {
+  private readonly string _bootstrapServers;
+  private readonly ILogger<Producer> _logger;
+  
+  public Producer(ILogger<Producer> logger, double timeout, string? bootstrapServers) {
     _logger = logger;
-    _bootstrapServers = "host.docker.internal:19092,localhost:9092";
-    _timeout = 10;
+    _timeout = timeout > 0 ? timeout : 10;
+    _bootstrapServers = bootstrapServers ?? "localhost:9092";
   }
 
   public Task<bool> PublishAsync<T>(string topic, KeyValuePair<string, T> message, CancellationToken cancellationToken) {

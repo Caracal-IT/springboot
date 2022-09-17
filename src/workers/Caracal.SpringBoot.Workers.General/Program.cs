@@ -21,8 +21,12 @@ void RegisterDb(HostBuilderContext context, IServiceCollection services) {
   );
 }
 
-void RegisterServices(IServiceCollection services) {
-  services.AddSingleton<IReadonlyQueue, Consumer>();
+void RegisterServices(HostBuilderContext context, IServiceCollection services) {
+  services.AddSingleton<IReadonlyQueue>(provider => 
+    new Consumer(
+      provider.GetRequiredService<ILogger<Consumer>>(),
+      context.Configuration.GetValue<string>("Kafka:BootstrapServers")
+    ));
 }
 
 void RegisterWorkers(IServiceCollection services) {

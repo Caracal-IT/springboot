@@ -22,7 +22,12 @@ builder.Services.AddScoped(typeof(AddDeposit));
 builder.Services
        .AddSpringBoot()
        .AddSpringBootData()
-       .AddSingleton<IWriteOnlyQueue, Producer>();
+       .AddSingleton<IWriteOnlyQueue>(provider => 
+         new Producer(
+            provider.GetRequiredService<ILogger<Producer>>(),
+            builder.Configuration.GetValue<double>("Kafka:TimeOut"),
+            builder.Configuration.GetValue<string>("Kafka:BootstrapServers")
+          ));
 
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("StringBoot")));
 

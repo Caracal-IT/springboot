@@ -1,15 +1,14 @@
 namespace Caracal.SpringBoot.Kafka;
 
 public class Consumer : IReadonlyQueue {
-    private readonly ILogger<Consumer> _logger;
+    private const string GroupIdPrefix = "spring-boot-";
+    
     private readonly string _bootstrapServers;
-    private readonly string _groupIdPrefix;
-
-    public Consumer(ILogger<Consumer> logger) {
+    private readonly ILogger<Consumer> _logger;
+    
+    public Consumer(ILogger<Consumer> logger, string? bootstrapServers) {
         _logger = logger;
-        
-        _bootstrapServers = "host.docker.internal:19092,localhost:9092";
-        _groupIdPrefix = "spring-boot-";
+        _bootstrapServers = bootstrapServers ?? "localhost:9092";
     }
 
     public IEnumerable<KeyValuePair<string, T>> Subscribe<T>(string topic, CancellationToken cancellationToken) {
@@ -34,7 +33,7 @@ public class Consumer : IReadonlyQueue {
         var config = new ConsumerConfig
         {
             BootstrapServers = _bootstrapServers,
-            GroupId = $"{_groupIdPrefix}{topic.ToLower()}",
+            GroupId = $"{GroupIdPrefix}{topic.ToLower()}",
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
         
