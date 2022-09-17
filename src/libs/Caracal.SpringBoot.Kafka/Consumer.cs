@@ -1,8 +1,3 @@
-using System.Text.Json;
-using Confluent.Kafka;
-using Caracal.Web.Core.Messaging;
-using Microsoft.Extensions.Logging;
-
 namespace Caracal.SpringBoot.Kafka;
 
 public class Consumer : IReadonlyQueue {
@@ -26,7 +21,7 @@ public class Consumer : IReadonlyQueue {
             if (result?.Message?.Value == null)
                 continue;
 
-            var message = JsonSerializer.Deserialize<T>(result.Message.Value);
+            var message = Deserialize<T>(result.Message.Value);
 
             if (message != null)
                 yield return new KeyValuePair<string, T>(result.Message.Key, message);

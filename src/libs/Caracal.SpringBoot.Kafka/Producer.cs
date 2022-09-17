@@ -1,10 +1,3 @@
-using System.Net;
-using Caracal.Web.Core.Messaging;
-using Confluent.Kafka;
-using Microsoft.Extensions.Logging;
-
-using static System.Text.Json.JsonSerializer;
-
 namespace Caracal.SpringBoot.Kafka;
 
 public class Producer : IWriteOnlyQueue {
