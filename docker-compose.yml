@@ -23,6 +23,36 @@ services:
       - springboot-network
     volumes:
       - cache:/data
+        
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.1
+    container_name: zookeeper
+    networks:
+      - springboot-network
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  broker:
+    image: confluentinc/cp-kafka:7.0.1
+    container_name: broker
+    networks:
+      - springboot-network
+    ports:
+      # To learn about configuring Kafka for access across networks see
+      # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+      - "19092:19092"
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,CONNECTIONS_FROM_HOST://localhost:19092,PLAINTEXT_INTERNAL://broker:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
   
   web:
     build:
@@ -35,8 +65,8 @@ services:
       - "7070:80"
       - "7171:443"
     depends_on:
-      - "api"
-      - "admin"
+      - api
+      - admin
     extra_hosts:
       - host.docker.internal:host-gateway
     environment:
@@ -55,8 +85,9 @@ services:
       - "8080:80"
       - "8181:443"
     depends_on:
-      - "postgres"
-      - "cache"
+      - postgres
+      - cache
+      - broker
     links:
       - postgres
       - cache
@@ -69,6 +100,7 @@ services:
       - ElasticConfiguration:Uri=http://host.docker.internal:9200
       - ConnectionStrings:StringBoot=Host=postgres;Username=postgres;Password=postgress;Database=springboot;Pooling=true;
       - ConnectionStrings:Redis=cache:6379,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      - Kafka:BootstrapServers=broker:29092
       
   worker-general:
     build:
@@ -83,6 +115,7 @@ services:
     depends_on:
       - postgres
       - cache
+      - broker
     networks:
       - springboot-network
     extra_hosts:
@@ -92,6 +125,7 @@ services:
       - ElasticConfiguration:Uri=http://host.docker.internal:9200
       - ConnectionStrings:StringBoot=Host=postgres;Username=postgres;Password=postgress;Database=springboot;Pooling=true;
       - ConnectionStrings:Redis=cache:6379,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      - Kafka:BootstrapServers=broker:29092
       
   admin:
     build:
@@ -113,8 +147,10 @@ services:
     environment:
       - ElasticApm:ServerUrl=http://host.docker.internal:8200
       - ElasticConfiguration:Uri=http://host.docker.internal:9200    
+      
 networks:
   springboot-network:
+    name: springboot-network
     driver: bridge
     
 volumes:
