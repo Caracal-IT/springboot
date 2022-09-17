@@ -1,29 +1,29 @@
 using System.Text.Json;
 using Confluent.Kafka;
 using Caracal.Web.Core.Messaging;
+using Microsoft.Extensions.Logging;
 
 namespace Caracal.SpringBoot.Kafka;
 
 public class Consumer : IReadonlyQueue {
-    private readonly ConsumerConfig _config;
+    private readonly ILogger<Consumer> _logger;
+    private readonly string _bootstrapServers;
+    private readonly string _groupIdPrefix;
 
-    public Consumer() {
-        _config = new ConsumerConfig
-        {
-            BootstrapServers = "host.docker.internal:19092,localhost:9092",
-            GroupId = "kafka-dotnet-getting-started",
-            AutoOffsetReset = AutoOffsetReset.Earliest
-        };
+    public Consumer(ILogger<Consumer> logger) {
+        _logger = logger;
+        
+        _bootstrapServers = "host.docker.internal:19092,localhost:9092";
+        _groupIdPrefix = "spring-boot-";
     }
 
     public IEnumerable<KeyValuePair<string, T>> Subscribe<T>(string topic, CancellationToken cancellationToken) {
-        using var consumer = new ConsumerBuilder<string, string>(_config).Build();
-        consumer.Subscribe(topic);
+        using var consumer = CreateConsumer(topic);
 
         while (!cancellationToken.IsCancellationRequested) {
             var result = TryConsume(consumer, cancellationToken);
 
-            if (result?.Message?.Value == null || cancellationToken.IsCancellationRequested)
+            if (result?.Message?.Value == null)
                 continue;
 
             var message = JsonSerializer.Deserialize<T>(result.Message.Value);
@@ -35,12 +35,30 @@ public class Consumer : IReadonlyQueue {
         consumer.Close();
     }
 
-    private static ConsumeResult<string, string>? TryConsume(IConsumer<string, string> consumer, CancellationToken cancellationToken) {
+    private IConsumer<string, string> CreateConsumer(string topic) {
+        var config = new ConsumerConfig
+        {
+            BootstrapServers = _bootstrapServers,
+            GroupId = $"{_groupIdPrefix}{topic.ToLower()}",
+            AutoOffsetReset = AutoOffsetReset.Earliest
+        };
+        
+        var consumer = new ConsumerBuilder<string, string>(config).Build();
+        consumer.Subscribe(topic);
+
+        return consumer;
+    }
+
+    private ConsumeResult<string, string>? TryConsume(IConsumer<string, string> consumer, CancellationToken cancellationToken) {
         try {
             return consumer.Consume(cancellationToken);
         }
         catch (OperationCanceledException) {
             Console.WriteLine("Operation Canceled");
+            return null;
+        }
+        catch (Exception exception) {
+            _logger.LogError(exception, "An unexpected exception occured");
             return null;
         }
     }
