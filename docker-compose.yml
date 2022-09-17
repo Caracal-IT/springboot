@@ -2,6 +2,7 @@ version: "3.9"
 services:
   postgres:
     image: postgres
+    restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgress
@@ -26,6 +27,7 @@ services:
         
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
+    restart: always
     container_name: zookeeper
     networks:
       - springboot-network
@@ -35,6 +37,7 @@ services:
 
   broker:
     image: confluentinc/cp-kafka:7.0.1
+    restart: always
     container_name: broker
     networks:
       - springboot-network
