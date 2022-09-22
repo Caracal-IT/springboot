@@ -1,4 +1,3 @@
-using Caracal.SpringBoot.Data.Postgres;
 using Caracal.SpringBoot.Data.Postgres.Models.Deposits;
 using Caracal.Web.Core.Messaging;
 

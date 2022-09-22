@@ -30,10 +30,3 @@ public sealed class GetWithdrawals {
   }
 }
 
-//var p = new Producer();
-//p.Send();
-//await p.SendAsync("withdrawals", cancellationToken);
-//using Caracal.SpringBoot.Kafka;
-//using Microsoft.Extensions.Caching.Distributed;
-
-
