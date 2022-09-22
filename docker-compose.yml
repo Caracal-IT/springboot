@@ -2,7 +2,6 @@ version: "3.9"
 services:
   postgres:
     image: postgres
-    restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgress
@@ -18,7 +17,7 @@ services:
     image: redis:6.2-alpine
     restart: always
     ports:
-      - '6379:6379'
+      - '6380:6379'
     command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     networks:
       - springboot-network
@@ -27,7 +26,6 @@ services:
         
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
-    restart: always
     container_name: zookeeper
     networks:
       - springboot-network
@@ -37,7 +35,6 @@ services:
 
   broker:
     image: confluentinc/cp-kafka:7.0.1
-    restart: always
     container_name: broker
     networks:
       - springboot-network
@@ -102,7 +99,7 @@ services:
       - ElasticApm:ServerUrl=http://host.docker.internal:8200
       - ElasticConfiguration:Uri=http://host.docker.internal:9200
       - ConnectionStrings:StringBoot=Host=postgres;Username=postgres;Password=postgress;Database=springboot;Pooling=true;
-      - ConnectionStrings:Redis=cache:6379,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      - ConnectionStrings:Redis=cache:6380,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
       - Kafka:BootstrapServers=broker:29092
       
   worker-general:
@@ -127,7 +124,7 @@ services:
       - ElasticApm:ServerUrl=http://host.docker.internal:8200
       - ElasticConfiguration:Uri=http://host.docker.internal:9200
       - ConnectionStrings:StringBoot=Host=postgres;Username=postgres;Password=postgress;Database=springboot;Pooling=true;
-      - ConnectionStrings:Redis=cache:6379,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      - ConnectionStrings:Redis=cache:6380,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
       - Kafka:BootstrapServers=broker:29092
       
   admin:
