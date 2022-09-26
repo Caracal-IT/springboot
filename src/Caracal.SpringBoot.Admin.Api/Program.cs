@@ -1,6 +1,9 @@
+using System.Net;
 using Caracal.SpringBoot.Templates.Services;
 using Caracal.Web.Core.DI;
 using Elastic.Apm.NetCoreAll;
+using Polly;
+using Polly.Contrib.WaitAndRetry;
 
 var builder = WebApplication.CreateBuilder(args)
                             .WithSerilog();
@@ -10,6 +13,17 @@ var builder = WebApplication.CreateBuilder(args)
 //   .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 builder.Services.AddHttpClient();
+builder.Services
+  .AddHttpClient("OpenWeather", client => {
+    client.BaseAddress = new Uri("https://api.openweathermap.org");
+    client.DefaultRequestHeaders.Add("User-Agent", "springboot-admin");
+  })
+  //.AddPolicyHandler(Policy<HttpResponseMessage>
+  //  .Handle<HttpRequestException>()
+  //  .OrResult(x => x.StatusCode is >= HttpStatusCode.InternalServerError or HttpStatusCode.RequestTimeout)
+  //  .WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(1), 5))
+  //);
+  .AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(1), 5)));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
