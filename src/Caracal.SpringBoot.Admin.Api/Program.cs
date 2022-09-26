@@ -1,4 +1,3 @@
-using System.Net;
 using Caracal.SpringBoot.Templates.Services;
 using Caracal.Web.Core.DI;
 using Elastic.Apm.NetCoreAll;
