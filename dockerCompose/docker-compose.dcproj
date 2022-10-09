@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.0</ProjectVersion>
+    <DockerTargetOS>Windows</DockerTargetOS>
+    <ProjectGuid>c89af81c-96bb-46f2-b0be-6cda86b7fa74</ProjectGuid>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>http://{ServiceIPAddress}</DockerServiceUrl>
+    <DockerServiceName>visualstudiodockersample</DockerServiceName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
+    <None Include="docker-compose_old.override.yml">
+      <DependentUpon>docker-compose_old.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose_old.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".dockerignore" />
+    <Content Include="docker-compose-base.yml" />
+  </ItemGroup>
+</Project>
