@@ -37,6 +37,12 @@
         <ProjectReference Include="..\libs\Caracal.Web.MediatR\Caracal.Web.MediatR.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
     <PropertyGroup>
         <DockerfileRunArguments>-p "4040:443" -p "5050:80"</DockerfileRunArguments>
     </PropertyGroup>

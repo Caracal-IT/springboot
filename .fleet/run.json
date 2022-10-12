@@ -1,0 +1,9 @@
+{
+    "configurations": [
+        {
+            "type": "docker-compose-up",
+            "name": "springboot docker",
+            "files": [],
+        }
+    ]
+}

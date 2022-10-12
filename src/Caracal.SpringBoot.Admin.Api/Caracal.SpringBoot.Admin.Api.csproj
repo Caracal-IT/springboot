@@ -41,4 +41,10 @@
         <ProjectReference Include="..\libs\Caracal.Web.Core\Caracal.Web.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>

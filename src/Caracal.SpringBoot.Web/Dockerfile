@@ -12,10 +12,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
-COPY ["src/Caracal.SpringBoot.Web/Caracal.SpringBoot.Web.csproj", "Caracal.SpringBoot.Web/"]
+COPY ["src/Caracal.SpringBoot.Web/Caracal.SpringBoot.Web.csproj", "src/Caracal.SpringBoot.Web/"]
 RUN dotnet restore "src/Caracal.SpringBoot.Web/Caracal.SpringBoot.Web.csproj"
 COPY . .
-WORKDIR "/src/Caracal.SpringBoot.Web"
+WORKDIR "/src/src/Caracal.SpringBoot.Web"
 RUN dotnet build "Caracal.SpringBoot.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
